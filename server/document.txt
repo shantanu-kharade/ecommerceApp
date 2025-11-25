@@ -1,0 +1,60 @@
+Model : 
+
+ user Moderl : 
+    userId
+    userName
+    email
+    password
+    profilePicture
+    createdAt
+    updatedAt
+    role
+    orderIds : []
+
+ product Model :
+    productId
+    productName
+    description
+    price 
+    stock
+    category
+    createdAt
+    updatedAt
+
+ order Model :
+    orderId
+    userId
+    productIds
+    totalAmmount
+    status
+    createdAt
+    updatedAt
+
+UI Design : 
+0. login 
+1. home page
+2. product page
+3. product detail page
+4. shopping cart page
+5. user profile page
+6. order history page
+7. admin dashboard page
+8. checkout page
+
+API Endpoints :
+User Registration: POST /api/auth/register
+User Login: POST /api/auth/login
+Get All Products: GET /api/products
+Get Product Details: GET /api/products/:productId
+Add Product to Cart: POST /api/cart/add
+Remove Product from Cart: POST /api/cart/remove
+Checkout: POST /api/checkout
+Get User Profile: GET /api/user/profile
+Update User Profile: PUT /api/user/profile
+Get Order History: GET /api/user/order
+Admin - Add New Product: POST /api/admin/products
+Admin - Update Product: PUT /api/admin/products/:productId
+Admin - Delete Product: DELETE /api/admin/products/:productId
+
+
+
