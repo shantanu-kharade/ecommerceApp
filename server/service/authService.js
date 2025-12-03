@@ -1,35 +1,32 @@
-import userModel from '../model/userModel.js';
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
+import userModel from "../model/userModel.js";
+import jwt from 'jsonwebtoken'
+import bcrypt from 'bcryptjs'
 import 'dotenv/config'
 
-const loginService = async (req,res) => {
-     try {
-        let user = await userModel.findOne({email : req.body.email})
-        if(!user){
-            return res.send("Email id is not registered")
-        }
-       
-        //verify password
-        const isMatch = await bcrypt.compare(req.body.password , user.password);
-        if(!isMatch){
-            return  res.send("Invalid credentials");
+const loginService = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        
+        const user = await userModel.findOne({ email: email })
+        if (!user) {
+            return res.status(404).send({ message: "Email not found" })
         }
 
-        //jwt token
-        const token = jwt.sign({ id: user._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
+        const verify = await bcrypt.compare(password, user.password)
+        if (!verify) {
+            return res.status(400).send({ message: "Invalid Credentials" })
+        }
 
+        const token = jwt.sign({ id: user._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' })
 
-        res.json({ token });
-    }
-    catch (error) {
-        res.send(error.message);
+        res.status(200).send({ token })
+    } catch (error) {
+        console.log("Error", error);
+        res.status(500).send({ message: "Internal Server Error" })
     }
 }
 
-
-const registerService = async (req,res) => {
-
+const registerService = async (req, res) => {
     try {
         const { userName, email, password, profilePic, role} = req.body;
 
@@ -43,8 +40,8 @@ const registerService = async (req,res) => {
             userName: userName,
             email: email,
             password: hashedPassword,
-            profilePic: profilePic,
-            role : role
+            profilePic: profilePic || 'Defalut_PIC_url',
+            role : role || 'customer'
         })
 
         user = await user.save();
@@ -59,11 +56,6 @@ const registerService = async (req,res) => {
         res.send(error.message);
     }
 }
-
-
-
-
-
 const logoutService = async (req,res) => {
     try {
         // Invalidate the token on client side by removing it
@@ -73,7 +65,6 @@ const logoutService = async (req,res) => {
         res.send(error.message);
     }
 }
-
 export {
     loginService,
     registerService,

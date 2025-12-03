@@ -5,7 +5,7 @@ const productRouter = Router();
 
 productRouter.get('/', getAllProducts);
 
-productRouter.get('/detail', getProductById);
+productRouter.get('/:id', getProductById);
 
 productRouter.post('/', createProduct);
 

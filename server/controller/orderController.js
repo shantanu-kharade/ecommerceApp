@@ -11,7 +11,7 @@ const placeOrder = async (req, res) => {
         res.status(201).json(order);
     }
     catch(error){
-        res.send(   error.message);
+        res.send(  error.message);
     }
 }
 

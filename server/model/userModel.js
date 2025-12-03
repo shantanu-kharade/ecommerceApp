@@ -19,7 +19,7 @@ export default userModel;
 
 export const validateUserBody = (req, res, next) => {
     const { userName, email, password, profilePic, role} = req.body;
-    if (!userName || !email || !password || !role || !profilePic) {
+    if (!userName || !email || !password) {
         return res.status(400).send("Missing required fields: userName, email, password, profilePic, or role");
     }
     next();

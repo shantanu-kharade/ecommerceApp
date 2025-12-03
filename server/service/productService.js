@@ -84,7 +84,7 @@ const deleteProductService = async(req,res) => {
         }
 
         product.isDeleted = true;
-        product.deletedAt = new Date();
+        // product.deletedAt = new Date();
 
         const deletedProduct = await product.save();
         return deletedProduct;

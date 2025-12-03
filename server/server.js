@@ -1,5 +1,6 @@
 import express from 'express';
 import 'dotenv/config';
+import cors from 'cors'
 import connectDB from './db/dbConfig.js';
 import userRouter from './routes/userRoutes.js';
 import productRouter from './routes/productRoutes.js';
@@ -12,8 +13,15 @@ import authRouter from './routes/authRoutes.js';
 const app = express();
 const port = process.env.port || 3000;
 
+app.use(cors({
+    origin: '*', 
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 // Body parser
 app.use(express.json());
+
 
 // MongoDB connection
 connectDB();
