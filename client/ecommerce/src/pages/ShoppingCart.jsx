@@ -170,7 +170,7 @@ const ShoppingCart = () => {
                                                     </div>
                                                     <button
                                                         onClick={() => handleRemoveItem(item.productId._id)}
-                                                        className="text-red-500 hover:text-red-700 text-sm font-semibold transition-colors"
+                                                        className="text-red-500 bg-red-200 p-2 rounded-md hover:text-red-700 text-sm font-semibold transition-colors"
                                                     >
                                                         Remove
                                                     </button>
