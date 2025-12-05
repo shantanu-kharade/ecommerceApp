@@ -17,6 +17,20 @@ const getOrderHistoryService = async (req, res) => {
     }
 }
 
+const getAllOrdersService = async (req, res) =>{
+    try {
+       
+        const orders = await OrderModel.find();
+        if (orders.length === 0) {
+            return res.status(200).send("No orders found");
+        }
+        return orders;
+    }
+    catch (error) {
+        throw new Error(error.message);
+    }
+}
+
 
 const placeOrderService = async (req, res) => {
     try {
@@ -113,5 +127,6 @@ export {
     placeOrderService,
     getOrderHistoryService,
     cancelOrderService,
-    updateOrderStatusService
+    updateOrderStatusService,
+    getAllOrdersService
 }

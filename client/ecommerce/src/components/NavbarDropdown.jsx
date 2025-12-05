@@ -1,7 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
+import { getProfile } from "../api/userApi"
 
 const NavbarDropdown = () => {
     const [isOpen, setIsOpen] = useState(false)
@@ -18,7 +19,18 @@ const NavbarDropdown = () => {
         setIsOpen(false)
     }
 
- 
+    const [profile, setProfile] = useState([]);
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            const response = await getProfile();
+            console.log("User Profile", response.data)
+            setProfile(response.data);
+        }
+        fetchUser()
+    }, [])
+
+
 
     return (
         <div className="relative">
@@ -26,7 +38,7 @@ const NavbarDropdown = () => {
                 onClick={toggleDropdown}
                 className="w-12 h-12 bg-gradient-to-r from-teal-600 to-cyan-600 text-white rounded-full hover:from-teal-700 hover:to-cyan-700 transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center"
             >
-                
+
 
                 <svg
                     className={`w-6 h-6 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
@@ -42,6 +54,16 @@ const NavbarDropdown = () => {
                 <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-xl z-50 border border-gray-100 overflow-hidden">
                     {token ? (
                         <>
+                            {profile.role === 'admin' &&
+                                <Link
+                                    to="/admin/dashboard"
+                                    onClick={() => setIsOpen(false)}
+                                    className="block w-full text-left px-4 py-3 text-gray-700 hover:bg-teal-50 hover:text-teal-600 transition-colors font-medium border-b border-gray-100"
+                                >
+                                    Admin dashboard
+                                </Link>
+                            }
+
                             <Link
                                 to="/userprofile"
                                 onClick={() => setIsOpen(false)}

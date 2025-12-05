@@ -49,8 +49,23 @@ const updateUserService = async (req,res) => {
     }
 }
 
+const getAllUsersService = async (req,res) => {
+     try {
+        // const userId = getUserIdFromRequest(req);
+        const user = await User.find();
+        if(!user){
+            return res.status(404).send("User not found");
+        }
+        return user;
+    }
+    catch (error) {
+        res.send(error.message);
+    }
+}
+
 
 export {
     getUserProfileService,
-    updateUserService
+    updateUserService,
+    getAllUsersService
 }

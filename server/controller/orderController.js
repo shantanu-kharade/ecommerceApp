@@ -1,4 +1,4 @@
-import { placeOrderService , getOrderHistoryService, cancelOrderService, updateOrderStatusService } from "../service/orderService.js";
+import { placeOrderService , getOrderHistoryService, cancelOrderService, updateOrderStatusService, getAllOrdersService } from "../service/orderService.js";
 import { authenticateToken, authorizeRole } from '../middleware/middleware.js';
 
 const placeOrder = async (req, res) => {
@@ -22,6 +22,25 @@ const getOrderHistory = async (req, res) => {
             return res.send("User not authenticated");
         }
         const orders = await getOrderHistoryService(req, res);
+        res.json(orders);
+    }
+    catch(error){
+        res.send(error.message);
+    }
+}
+
+const getAllOrders = async (req, res) => {
+    try{
+        const authenicateUser = await authenticateToken(req, res);
+        if (!authenicateUser) {
+            return res.send("User not authenticated");
+        }
+        const authorized = await authorizeRole(['admin'], req);
+        console.log("after authorize");
+        if (!authorized) {
+            return res.send("User not authorized");
+        }
+        const orders = await getAllOrdersService(req, res);
         res.json(orders);
     }
     catch(error){
@@ -68,5 +87,6 @@ export{
     placeOrder,
     getOrderHistory,
     cancelOrder,
-    updateOrderStatus
+    updateOrderStatus,
+    getAllOrders
 }

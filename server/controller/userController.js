@@ -1,4 +1,4 @@
-import { updateUserService, getUserProfileService} from '../service/userService.js';
+import { updateUserService, getUserProfileService, getAllUsersService } from '../service/userService.js';
 import { authenticateToken, authorizeRole } from '../middleware/middleware.js';
 import { validateUserBody } from '../model/userModel.js';
 
@@ -13,6 +13,11 @@ const getUserProfile = async (req, res) => {
         if (!authenicateUser) {
             return res.send("User not authenticated");
         }
+        const authorized = await authorizeRole(['admin'], req);
+        console.log("after authorize");
+        if (!authorized) {
+            return res.send("User not authorized");
+        }
         const user = await getUserProfileService(req, res);
         res.send(user);
     }
@@ -23,7 +28,7 @@ const getUserProfile = async (req, res) => {
 }
 
 const updateUser = async (req, res) => {
-    try{
+    try {
         const authenicateUser = await authenticateToken(req, res);
         if (!authenicateUser) {
             return res.send("User not authenticated");
@@ -36,7 +41,23 @@ const updateUser = async (req, res) => {
     }
 }
 
+const getAllUsers = async (req,res) => {
+    try {
+        console.log(req.headers);
+        const authenicateUser = await authenticateToken(req, res);
+        if (!authenicateUser) {
+            return res.send("User not authenticated");
+        }
+        const user = await getAllUsersService(req, res);
+        res.send(user);
+    }
+    catch (error) {
+        res.send(error.message);
+    }
+}
+
 export {
     getUserProfile,
-    updateUser
+    updateUser,
+    getAllUsers
 }
