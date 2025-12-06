@@ -18,32 +18,32 @@ const UserProfile = () => {
     return (
         <div className="min-h-screen bg-gray-50">
             <NavBar />
-            
+
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 {/* Main Card Container */}
                 <div className="bg-white rounded-3xl shadow-xl shadow-gray-100 overflow-hidden flex flex-col md:flex-row min-h-[600px] border border-gray-100">
-                    
-               
+
+
                     <div className="w-full md:w-1/3 bg-gradient-to-br from-gray-50 to-gray-100 border-b md:border-b-0 md:border-r border-gray-200 p-8 flex flex-col items-center justify-center gap-6">
                         <div className="relative group">
                             {/* Profile Circle */}
                             <div className="w-48 h-48 rounded-full p-1 bg-gradient-to-r from-teal-500 to-cyan-500 shadow-lg">
-                                <img 
-                                    src={profile.profilePic } 
-                                    alt="" 
+                                <img
+                                    src={profile.profilePic}
+                                    alt=""
                                     className="w-full h-full rounded-full object-cover border-4 border-white bg-gradient-to-r from-teal-500 to-cyan-500"
                                 />
                             </div>
                         </div>
- 
+
                         <div className="text-center">
                             <h2 className="text-2xl font-bold text-gray-900">{profile.userName || "User"}</h2>
                             <p className="text-teal-600 font-medium text-sm">{profile.role}</p>
                         </div>
                     </div>
-
+  
                     <div className="w-full md:w-2/3 p-8 md:p-12 flex flex-col gap-6">
-                        
+
                         <h1 className="text-2xl font-bold text-gray-800 mb-2">Profile Details</h1>
 
                         {/* Username Field */}
@@ -62,7 +62,7 @@ const UserProfile = () => {
                             </div>
                         </div>
 
-                     
+
                         <div className="flex-1 min-h-[200px] flex flex-col space-y-2">
                             <label className="text-sm font-semibold text-gray-500 uppercase tracking-wide">Order History</label>
                             <div className="flex-1 w-full bg-gray-50 border border-gray-200 rounded-xl p-6 overflow-y-auto">

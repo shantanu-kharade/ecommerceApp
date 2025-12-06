@@ -5,7 +5,7 @@ const AdminDashboard = () => {
   return (
     <div>   
         <AdminNavBar/>
-
+        
         <Outlet />
     </div>
   )

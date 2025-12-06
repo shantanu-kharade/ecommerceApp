@@ -17,7 +17,7 @@ const loginService = async (req, res) => {
             return res.status(400).send({ message: "Invalid Credentials" })
         }
 
-        const token = jwt.sign({ id: user._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' })
+        const token = jwt.sign({ id: user._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '3h' })
 
         res.status(200).send({ token })
     } catch (error) {

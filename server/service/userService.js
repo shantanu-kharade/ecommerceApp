@@ -7,11 +7,11 @@ import 'dotenv/config'
 
 
 
-const getUserProfileService = async (req,res) => {
+const getUserProfileService = async (req, res) => {
     try {
         const userId = getUserIdFromRequest(req);
         const user = await User.findById(userId).select('-password');
-        if(!user){
+        if (!user) {
             return res.status(404).send("User not found");
         }
         return user;
@@ -22,38 +22,38 @@ const getUserProfileService = async (req,res) => {
 
 }
 
-const updateUserService = async (req,res) => {
-    try{
+const updateUserService = async (req, res) => {
+    try {
         const userId = getUserIdFromRequest(req);
         const user = await User.findById(userId);
-        if(!user){
+        if (!user) {
             return res.status(404).send("User not found");
         }
 
-        if(req.body.pass){
+        if (req.body.pass) {
             req.body.pass = await bcrypt.hash(req.body.pass, 10);
         }
 
         const updatedata = {
-            userName : req.body.userName || user.userName,
-            email : req.body.email || user.email,
-            profilePic : req.body.profilePic || user.profilePic,
-            password : req.body.pass || user.password
+            userName: req.body.userName || user.userName,
+            email: req.body.email || user.email,
+            profilePic: req.body.profilePic || user.profilePic,
+            password: req.body.pass || user.password
         }
 
         const updatedUser = await User.findByIdAndUpdate(userId, updatedata, { new: true }).select('-password');
         return updatedUser;
     }
-    catch(error){
+    catch (error) {
         res.send(error.message);
     }
 }
 
-const getAllUsersService = async (req,res) => {
-     try {
+const getAllUsersService = async (req, res) => {
+    try {
         // const userId = getUserIdFromRequest(req);
         const user = await User.find();
-        if(!user){
+        if (!user) {
             return res.status(404).send("User not found");
         }
         return user;
