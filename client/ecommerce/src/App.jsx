@@ -11,9 +11,10 @@ import Login from './pages/auth/Login'
 import PlaceOrder from './pages/PlaceOrder'
 import Products from './pages/Products'
 import AdminDashboard from './pages/admin/AdminDashboard'
-import CreateProduct from './pages/admin/CreateProduct'
-import OrderListring from './pages/admin/OrderListring'
+import CreateProduct from './pages/admin/Products'
+import OrderListing from './pages/admin/OrderListing'
 import UserListing from './pages/admin/UserListing'
+
 
 
 
@@ -35,7 +36,7 @@ function App() {
                 <Route path='/admin/dashboard' element={<AdminDashboard />} >
                     <Route path='user' element={<UserListing />} />
                     <Route path='createproduct' element={<CreateProduct />} />
-                    <Route path='order' element={<OrderListring />} />
+                    <Route path='order' element={<OrderListing />} />
                 </Route>
                 <Route path='*' element={<h1>404 Page not found</h1>} />
             </Routes>

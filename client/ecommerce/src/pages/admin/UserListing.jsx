@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import { getALlUsers } from '../../api/userApi'
-import NavBar from '../../components/AdminNavbar.jsx' // Added NavBar for consistency
+import AdminNavBar from '../../components/AdminNavbar.jsx' // Added NavBar for consistency
 
 const UserListing = () => {
 
@@ -33,7 +33,7 @@ const UserListing = () => {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            <NavBar />
+            
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 {/* Header Section */}

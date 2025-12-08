@@ -71,11 +71,28 @@ const updateStatus = async (orderId, status) => {
     }
 }
 
+const getAllOrders = async() =>{
+    try{
+        const response = await axios.get(`${backendURL}/api/order/get-all-orders`,
+            {
+                headers:{
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        )
+        return response;
+    }catch(error){
+        throw new error
+    }
+}
+
+
 
 
 export {
     placeOrder,
     getOrders,
     cancleOrder,
-    updateStatus
+    updateStatus,
+    getAllOrders
 }
