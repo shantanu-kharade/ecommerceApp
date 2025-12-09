@@ -71,18 +71,36 @@ const updateStatus = async (orderId, status) => {
     }
 }
 
-const getAllOrders = async() =>{
-    try{
+const getAllOrders = async () => {
+    try {
         const response = await axios.get(`${backendURL}/api/order/get-all-orders`,
             {
-                headers:{
+                headers: {
                     Authorization: `Bearer ${token}`
                 }
             }
         )
         return response;
-    }catch(error){
+    } catch (error) {
         throw new error
+    }
+}
+
+const updateOrder = async (orderId, status) => {
+    try {
+        const response = await axios.post(`${backendURL}/api/order/update-order-status `, {
+            orderId,
+            status
+        }, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        return response;
+    } catch (error) {
+        console.log(error);
+        return new Error
+
     }
 }
 
@@ -94,5 +112,6 @@ export {
     getOrders,
     cancleOrder,
     updateStatus,
-    getAllOrders
+    getAllOrders,
+    updateOrder
 }

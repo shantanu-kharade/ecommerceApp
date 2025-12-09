@@ -1,30 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
 const ProductForm = ({ product, onSave, onCancel }) => {
 
-    // Initial State
+  
     const [formData, setFormData] = useState({
-        productName: '',
-        description: '',
-        price: '',
-        category: '',
-        stock: '',
-        imageUrl: ''
+        productName: product?.productName || '',
+        description: product?.description || '',
+        price: product?.price || '',
+        category: product?.category || '',
+        stock: product?.stock || '',
+        imageUrl: product?.imageUrl || ''
     })
 
-    // If editing, populate form
-    useEffect(() => {
-        if (product) {
-            setFormData({
-                productName: product.productName || '',
-                description: product.description || '',
-                price: product.price || '',
-                category: product.category || '',
-                stock: product.stock || '',
-                imageUrl: product.imageUrl || ''
-            })
-        }
-    }, [product])
+
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -32,7 +20,7 @@ const ProductForm = ({ product, onSave, onCancel }) => {
     }
 
     const handleSubmit = (e) => {
-        e.preventDefault()
+        e.preventDefault();
         onSave(formData)
     }
 

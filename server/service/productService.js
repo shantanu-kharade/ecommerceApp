@@ -4,15 +4,15 @@ import ProductModel from '../model/productModel.js';
 const createProductService= async (req,res) => {
     try{
         const userId = getUserIdFromRequest(req);
-        const { productName, description, price, category, stock, imageUrl } = req.body;
+        const { formData } = req.body;
 
         const product = new ProductModel({
-            productName: productName,
-            description: description,
-            price: price,
-            category: category,
-            stock: stock,
-            imageUrl: imageUrl,
+            productName: formData.productName,
+            description: formData.description,
+            price: formData.price,
+            category: formData.category,
+            stock: formData.stock,
+            imageUrl: formData.imageUrl,
             createdBy: userId
         })
 

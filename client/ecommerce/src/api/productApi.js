@@ -7,7 +7,7 @@ console.log('Token at api', token)
 
 const createProduct = async (formData) => {
     try {
-        const response = await axios.post(`${backendURL}/api/order/`, {
+        const response = await axios.post(`${backendURL}/api/products/`, {
             formData
         }, {
             headers: {
@@ -22,20 +22,17 @@ const createProduct = async (formData) => {
 }
 
 
-const updateProduct = async (productName, description, price, category, stock, imageUrl) => {
+const updateProduct = async (productId, productData) => {
     try {
-        const response = await axios.put(`${backendURL}/api/order/`, {
-            productName,
-            description,
-            price,
-            category,
-            stock,
-            imageUrl,
-        }, {
-            headers: {
-                Authorization: `Bearer ${token}`
+       const response = await axios.put(
+            `${backendURL}/api/products/?id=${productId}`, 
+            productData, 
+            {
+                headers:{
+                    Authorization: `Bearer ${token}`
+                }
             }
-        })
+        );
         return response;
     } catch (error) {
         console.log("Error", error);
@@ -43,11 +40,9 @@ const updateProduct = async (productName, description, price, category, stock, i
     }
 }
 
-const deleteProduct = async (productId) => {
+const deleteProduct = async (id) => {
     try {
-        const response = await axios.put(`${backendURL}/api/order/`, {
-            productId
-        }, {
+        const response = await axios.delete(`${backendURL}/api/products/?id=${id}`,{
             headers: {
                 Authorization: `Bearer ${token}`
             }

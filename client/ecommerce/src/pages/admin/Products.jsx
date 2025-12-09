@@ -45,9 +45,8 @@ const Products = () => {
     const handleSave = async (formData) => {
         try {
             if (currentProduct) {
-
                 await updateProduct(currentProduct._id, formData)
-            } else {
+            } else {    
 
                 await createProduct(formData)
             }

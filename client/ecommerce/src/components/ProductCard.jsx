@@ -54,7 +54,7 @@ const ProductCard = ({ product }) => {
             <div className="p-5 pt-0">
                 <button
                     onClick={() => navigate(`/product/${product._id}`)}
-                    className="w-full px-4 py-3 bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-teal-200 transition-all duration-200 transform active:scale-95 flex items-center justify-center gap-2"
+                    className="w-full px-4 py-3 bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-teal-200 transition-all duration-200 transform active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
                 >
                     View Details
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

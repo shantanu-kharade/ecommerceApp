@@ -1,8 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import { getALlUsers } from '../../api/userApi'
-import AdminNavBar from '../../components/AdminNavbar.jsx' // Added NavBar for consistency
-
+import AdminNavBar from '../../components/AdminNavbar.jsx' 
 const UserListing = () => {
 
     const [users, setUsers] = useState([]);

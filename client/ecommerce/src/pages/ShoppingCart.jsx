@@ -136,7 +136,7 @@ const ShoppingCart = () => {
                         <p className="text-gray-500 mb-8">Start shopping to add items to your cart</p>
                         <a
                             href="/"
-                            className="px-8 py-3 bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-teal-200 transition-all transform hover:scale-105"
+                            className="px-8 py-3 bg-linear-to-r from-teal-600 to-cyan-600 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-teal-200 transition-all transform hover:scale-105"
                         >
                             Continue Shopping
                         </a>
@@ -170,7 +170,7 @@ const ShoppingCart = () => {
                                                     </div>
                                                     <button
                                                         onClick={() => handleRemoveItem(item.productId._id)}
-                                                        className="text-red-500 bg-red-200 p-2 rounded-md hover:text-red-700 text-sm font-semibold transition-colors"
+                                                        className="text-red-500 bg-red-200 p-2 rounded-md hover:text-red-700 text-sm font-semibold transition-colors cursor-pointer"
                                                     >
                                                         Remove
                                                     </button>
@@ -229,12 +229,12 @@ const ShoppingCart = () => {
 
                                 <button
                                     onClick={() => { handleOrder() }}
-                                    className="w-full px-4 py-3.5 bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-bold rounded-lg hover:shadow-lg hover:shadow-teal-200 transition-all duration-200 transform hover:scale-[1.02] mb-3">
+                                    className="w-full px-4 py-3.5 bg-gradient-to-r cursor-pointer from-teal-600 to-cyan-600 text-white font-bold rounded-lg hover:shadow-lg hover:shadow-teal-200 transition-all duration-200 transform hover:scale-[1.02] mb-3">
                                     Checkout Now
                                 </button>
                                 <button
                                     onClick={handleNaviagate}
-                                    className="w-full px-4 py-3.5 border-2 border-gray-200 text-gray-700 font-semibold rounded-lg hover:border-teal-600 hover:text-teal-600 transition-colors">
+                                    className="w-full px-4 py-3.5 cursor-pointer border-2 border-gray-200 text-gray-700 font-semibold rounded-lg hover:border-teal-600 hover:text-teal-600 transition-colors">
                                     Continue Shopping
                                 </button>
                             </div>

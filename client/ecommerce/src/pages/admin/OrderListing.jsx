@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import { getAllOrders } from '../../api/orderApi'
+import { getAllOrders, updateStatus } from '../../api/orderApi'
 
 const OrderListing = () => {
     const [orders, setOrders] = useState([])
     const [isLoading, setIsLoading] = useState(true)
+    const [updatingOrderId, setUpdatingOrderId] = useState(null)
 
     useEffect(() => {
         const fetchOrder = async () => {
             try {
                 const response = await getAllOrders();
-                console.log(response.data)
-                setOrders(response.data)
+               
+                setOrders(response.data || []) 
             } catch (error) {
                 console.error("Error fetching orders:", error)
             } finally {
@@ -20,7 +21,6 @@ const OrderListing = () => {
         fetchOrder();
     }, [])
 
-    
     const getStatusStyle = (status) => {
         switch (status?.toLowerCase()) {
             case 'pending': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
@@ -29,6 +29,26 @@ const OrderListing = () => {
             case 'delivered': return 'bg-green-100 text-green-800 border-green-200';
             case 'cancelled': return 'bg-red-100 text-red-800 border-red-200';
             default: return 'bg-gray-100 text-gray-800 border-gray-200';
+        }
+    }
+
+    const handleStatusUpdate = async (orderId, newStatus) => {
+        try {
+            setUpdatingOrderId(orderId) 
+            
+            await updateStatus(orderId, newStatus)
+            
+           
+            setOrders(prevOrders => 
+                prevOrders.map(order => 
+                    order._id === orderId ? { ...order, orderStatus: newStatus } : order
+                )
+            )
+        } catch (error) {
+            console.error("Failed to update status", error)
+            alert("Failed to update order status. Please try again.")
+        } finally {
+            setUpdatingOrderId(null) 
         }
     }
 
@@ -48,7 +68,7 @@ const OrderListing = () => {
                 ) : (
                     <div className="bg-white rounded-2xl shadow-xl shadow-gray-100 border border-gray-100 overflow-hidden">
                         
-                        
+                        {/* Table Header */}
                         <div className="hidden md:grid grid-cols-12 gap-4 px-6 py-4 bg-gray-50/50 border-b border-gray-100 text-xs font-bold text-gray-500 uppercase tracking-wider">
                             <div className="col-span-3">Order ID</div>
                             <div className="col-span-3">Customer ID</div>
@@ -71,7 +91,7 @@ const OrderListing = () => {
                                         key={order._id} 
                                         className="grid grid-cols-1 md:grid-cols-12 gap-4 px-6 py-5 hover:bg-gray-50 transition-colors items-center group"
                                     >
-                                        {/* Order ID & Items Count */}
+                                        {/* Order ID */}
                                         <div className="col-span-1 md:col-span-3">
                                             <p className="font-mono text-sm font-semibold text-gray-900 truncate" title={order._id}>
                                                 #{order._id.slice(-8).toUpperCase()}
@@ -109,11 +129,36 @@ const OrderListing = () => {
                                             </span>
                                         </div>
 
-                                        {/* Status Badge */}
+                                        {/* Status Dropdown */}
                                         <div className="col-span-1 md:col-span-2 flex md:justify-end">
-                                            <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide border ${getStatusStyle(order.orderStatus)}`}>
-                                                {order.orderStatus}
-                                            </span>
+                                            {updatingOrderId === order._id ? (
+                                                <div className="px-3 py-1 flex items-center gap-2 text-sm text-teal-600 font-medium bg-teal-50 rounded-full border border-teal-100">
+                                                    <div className="w-3 h-3 border-2 border-teal-600 border-t-transparent rounded-full animate-spin"></div>
+                                                    Updating...
+                                                </div>
+                                            ) : (
+                                                <div className="relative">
+                                                    <select
+                                                        value={order.orderStatus}
+                                                        onChange={(e) => handleStatusUpdate(order._id, e.target.value)}
+                                                        disabled={updatingOrderId !== null}
+                                                        className={`appearance-none cursor-pointer pl-4 pr-8 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide border outline-none focus:ring-2 focus:ring-offset-1 focus:ring-teal-500 transition-all ${getStatusStyle(order.orderStatus)}`}
+                                                    >
+                                                        <option value="pending">Pending</option>
+                                                        <option value="confirmed">Confirmed</option>
+                                                        <option value="shipped">Shipped</option>
+                                                        <option value="delivered">Delivered</option>
+                                                        <option value="cancelled">Cancelled</option>
+                                                    </select>
+                                                    
+                                                    {/* Custom Arrow Icon */}
+                                                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-600">
+                                                        <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 ))}
@@ -122,7 +167,7 @@ const OrderListing = () => {
                     </div>
                 )}
 
-                {/* Footer Count */}
+            
                 {orders.length > 0 && (
                     <div className="mt-4 text-right text-sm text-gray-500 font-medium">
                         Showing {orders.length} orders
