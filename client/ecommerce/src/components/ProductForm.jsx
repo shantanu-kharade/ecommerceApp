@@ -125,7 +125,7 @@ const ProductForm = ({ product, onSave, onCancel }) => {
                     </button>
                     <button
                         type="submit"
-                        className="px-6 py-2.5 bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-semibold rounded-lg hover:shadow-lg transition-all"
+                        className="px-6 py-2.5 bg-linear-to-r from-teal-600 to-cyan-600 text-white font-semibold rounded-lg hover:shadow-lg transition-all"
                     >
                         {product ? 'Update Product' : 'Create Product'}
                     </button>
