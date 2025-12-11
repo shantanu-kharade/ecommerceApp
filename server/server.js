@@ -12,12 +12,7 @@ import authRouter from './routes/authRoutes.js';
 // Express app
 const app = express();
 const port = process.env.port || 3000;
-
-app.use(cors({
-    origin: '*', 
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
+app.use(cors());
 
 // Body parser
 app.use(express.json());
